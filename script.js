@@ -1,5 +1,5 @@
 var cont = document.querySelector('#gridContainer');
-let colorMode = 'black';
+let colorMode = 'shade';
 
 generateGrid(16);
 
@@ -25,6 +25,11 @@ color.addEventListener('click', (e) => {
     colorMode = 'random';
 });
 
+var shade = document.querySelector('#shade');
+shade.addEventListener('click', (e) => {
+    colorMode = 'shade';
+});
+
 function generateGrid(num) {
     for (let x = 0; x < num; x++) {
         let row = document.createElement('div');
@@ -33,6 +38,7 @@ function generateGrid(num) {
         for (let y = 0; y < num; y++) {
             let square = document.createElement('div');
             square.classList.add("square");
+            square.style.backgroundColor = 'rgb(255, 255, 255)';
             square.addEventListener('mouseover', colorSquare);
             row.appendChild(square);
         }
@@ -42,12 +48,9 @@ function generateGrid(num) {
 
 function colorSquare(e) {
     if (e.target.matches('.square')) {
-        if (colorMode === 'black') e.target.style.backgroundColor = "black";
+        if (colorMode === 'black') e.target.style.backgroundColor = "#000";
         if (colorMode === 'random') e.target.style.backgroundColor = colorRandom();
-        if (colorMode === 'shade')
-            e.target.style.backgroundColor = colorShade(
-                e.target.style.backgroundColor
-            );
+        if (colorMode === 'shade') e.target.style.backgroundColor = shadeIn(e.target.style.backgroundColor);
     }
 }
 
@@ -56,6 +59,14 @@ function colorRandom() {
     const g = getRandomInteger(0, 256);
     const b = getRandomInteger(0, 256);
     return `rgb(${r},${g},${b})`;
+}
+
+function shadeIn(c){
+    let r = c.substring(4,c.indexOf(","));
+    let g = c.substring(c.indexOf(",")+2,c.indexOf(",",c.indexOf(",")+2));
+    let b = c.substring(c.indexOf(",",c.indexOf(",")+2) + 2,c.indexOf(")"));
+    let rgb = `rgb(${r-(255/10)},${g-(255/10)},${b-(255/10)})`
+    return rgb;
 }
 
 function getRandomInteger(min, max) {
