@@ -1,0 +1,30 @@
+#gridContainer{
+    width: 600px;
+    height: 600px;
+    flex-direction: column;
+    display: flex;
+    border: 2px solid #444;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 100%;
+    line-height: 0;
+}
+
+.square{
+    flex-grow: 1;
+    background-color: white;
+    line-height: 0;
+}
+body{
+    text-align: center;
+}
+button{
+    margin: 10px;
+    margin-top: 20px;
+}
